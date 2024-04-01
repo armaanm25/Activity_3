@@ -1,4 +1,4 @@
-package PegGame;
+package PegGameGUI;
 
 /*
  * An enum file that shows all possible States in the PegGame

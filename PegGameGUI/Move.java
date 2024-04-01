@@ -1,4 +1,4 @@
-package PegGame;
+package PegGameGUI;
 
 /*
  * Move Class is used to represent where the Peg is being moved.

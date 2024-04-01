@@ -1,4 +1,4 @@
-package PegGame;
+package PegGameGUI;
 
 /* 
  * Location Class represents current position of the Peg.

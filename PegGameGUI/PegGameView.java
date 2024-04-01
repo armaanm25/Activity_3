@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 Create GUI components such as buttons, labels, and panels to represent the game elements.
 Implement event listeners for mouse clicks to handle user input for selecting and moving pegs. */
 
-public class View extends Application{
+public class PegGameView extends Application{
     public Label gamestateLabel;
     public int size;
     public int row;

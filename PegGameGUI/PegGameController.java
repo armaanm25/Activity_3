@@ -4,6 +4,6 @@ package PegGameGUI;
 Implement methods for responding to user input events and updating the Model accordingly.
 Ensure proper error handling and validation of user actions, such as checking for legal moves. */
 
-public class Controller {
+public class PegGameController {
     
 }
