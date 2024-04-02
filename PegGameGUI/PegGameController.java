@@ -5,5 +5,14 @@ Implement methods for responding to user input events and updating the Model acc
 Ensure proper error handling and validation of user actions, such as checking for legal moves. */
 
 public class PegGameController {
-    
+    private PegGameModel model;
+    private PegGameView view;
+
+    //constructor
+    public PegGameController(PegGameModel model,PegGameView view){
+        this.model=model;
+        this.view=view;
+    }
+
+    //i think mouse click event also comes in this
 }

@@ -1,11 +1,17 @@
 package PegGameGUI;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,16 +30,16 @@ public class PegGameView extends Application{
     public int size;
     public int row;
     public int col;
-    private Node gridPane; 
     
 
-    private void drawBoard(GridPane gridPane,int size){
+    private void drawBoard(int size){
 
         GridPane gridPane=new GridPane();
         // Draw grid
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                Circle circle = new Circle(30); // Create a circle with radius 25
+                
+                /*Circle circle = new Circle(30); // Create a circle with radius 25
                 circle.setFill(Color.WHITE); // Set fill color
                 circle.setStroke(Color.BLACK); // Set stroke color
 
@@ -41,13 +47,25 @@ public class PegGameView extends Application{
                 Button button = new Button(); // Create a button
                 button.setGraphic(circle); 
 
-                gridPane.add(button, row, col);
+                gridPane.add(button, row, col);*/ 
                 }
             }
         }
 
-    /*public void displayGameState(){
-        GameState gameState=game.getGameState();
+    public void PegCreation(){
+        Button pegButton=new Button();
+        pegButton.setShape(new javafx.scene.shape.Circle(30));
+        pegButton.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    public void HoleCreation(){
+        Button holeButton=new Button();
+        holeButton.setShape(new javafx.scene.shape.Circle(10));
+        holeButton.setBackground(new Background(new BackgroundFill(Color.CHOCOLATE,CornerRadii.EMPTY,Insets.EMPTY)));
+    }
+
+    public void displayGameState(){
+        GameState gameState=board.getGameState();  //we need to create a board instance
         switch (gameState) {
             case NOT_STARTED:
                 gamestateLabel.setText("Start the Game");
@@ -59,9 +77,10 @@ public class PegGameView extends Application{
                 gamestateLabel.setText("You won :)");
             
         }
-    }*/
+    }
 
     public void start(Stage stage) throws Exception{
+
         Label PegLabel=new Label("Peg Game!");
         PegLabel.setFont(Font.font("Helvetica",FontWeight.SEMI_BOLD,30));
         PegLabel.setTextFill(Color.INDIGO);
@@ -78,9 +97,8 @@ public class PegGameView extends Application{
         v1.setAlignment(Pos.CENTER);
         v1.setSpacing(20);
 
-        //Scene scene=new Scene(gridPane,400,300);
-        //stage.setScene(scene);
-        stage.setScene(new Scene(v1));   //parameter for Scene might be different
+        Scene scene=new Scene(v1,500,400);
+        stage.setScene(scene);   
         stage.show();
     }
     public static void main(String[] args) {
