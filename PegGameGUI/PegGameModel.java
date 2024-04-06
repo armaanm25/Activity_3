@@ -24,10 +24,11 @@ public class PegGameModel {
         boolean[][] board = new boolean[size][size];
         String line;
         int row = 0;
+        System.out.println("hi");
         while ((line = reader.readLine()) != null && row < size) {
             for (int col = 0; col < size; col++) {
                 char ch = line.charAt(col);
-                if (ch == 'o') {
+                if (ch == '0') {
                     board[row][col] = true;
                 } else {
                     board[row][col] = false;
@@ -36,6 +37,13 @@ public class PegGameModel {
             row++;
         }
         reader.close();
+        for (boolean[] row1 : board) {
+            for (boolean value : row1) {
+                System.out.print(value+"-");
+            }
+            System.out.println();
+        }
+
         return board;
     }
 

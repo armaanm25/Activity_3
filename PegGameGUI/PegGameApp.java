@@ -1,17 +1,31 @@
 package PegGameGUI;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class PegGameApp extends Application{
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) throws IOException{
+        /*Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the absolute path of the file: ");
+        String filepath = scanner.nextLine();*/
+        //scanner works but edited out for ease of use, hard code ur own path.
+        String filepath="C:/Users/ender/Desktop/koko/Activity_3/PegGameGUI/board.txt";
         PegGameModel model=new PegGameModel(filepath); //pls add CLI file input code
-        PegGameView view=new PegGameView();
+        boolean[][] board=model.getBoard();
+        
+        PegGameView view=new PegGameView(board);
 
         new PegGameController(model,view);
 
-        view.start(primaryStage);
+        try {
+            view.start(primaryStage);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        //scanner.close();
     }
     public static void main(String[] args) {
         launch(args);
