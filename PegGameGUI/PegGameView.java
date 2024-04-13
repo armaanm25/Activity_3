@@ -84,23 +84,110 @@ public class PegGameView extends Application{
         holeButton.setBackground(new Background(new BackgroundFill(Color.CHOCOLATE,CornerRadii.EMPTY,Insets.EMPTY)));
         return holeButton;
     }
+    private boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol) {
 
-    /*public void displayGameState(){
-        GameState gameState=board.getGameState();  //we need to create a board instance
+        // Check if target is valid
+        if (toRow < 0 || toRow > board.length || toCol < 0 || toCol >= board[0].length) {
+            //System.out.println("FIRST error in isvalid");
+            //System.out.println(holes[toRow][toCol]);
+            //System.out.println(toRow);
+            //System.out.println(holes.length);
+            return false;
+        }
+        // Check  if from is valid
+        if (fromRow < 0 || fromRow > board.length || fromCol < 0 || fromCol >= board[0].length) {
+            //System.out.println("SECOND");
+            return false;
+        }
+        // check midpoint
+        int midRow = (fromRow + toRow) / 2;
+        int midCol = (fromCol + toCol) / 2;
+        if (midRow < 0 || midRow > board.length || midCol < 0 || midCol >= board[0].length) {
+            //System.out.println("third");
+            return false;
+        }
+        // Move is valid if the destination is empty and the midpoint has a peg
+        try{
+        if (board[toRow][toCol] == false && board[(fromRow + toRow) / 2][(fromCol + toCol) / 2]==true) {
+            return true;
+        }
+    }catch (ArrayIndexOutOfBoundsException e){
+        return false;
+    }
+        return board[(fromRow + toRow) / 2][(fromCol + toCol) / 2];
+    }
+
+    public GameState getGameState() {
+
+        int pegNum = 0;
+        int holeNum = 0;
+        for (int i = 0; i < board.length; i++) {
+            for (int x = 0; x < board[i].length; x++) {
+                if (board[i][x]) {
+                    pegNum++;
+                } else {
+                    holeNum++;
+                }
+            }
+        }
+        if (pegNum == 1) {
+            return GameState.WON;
+        }
+        if (holeNum == 1) {
+            return GameState.NOT_STARTED;
+        }
+
+        boolean noValidMoves = true;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int x = 0; x < board[i].length; x++) {
+                if (board[i][x]) {
+                    if (isValidMove(i, x, i, x + 2) || isValidMove(i, x, i, x - 2) || isValidMove(i, x, i + 2, x)
+                            || isValidMove(i, x, i - 2, x) || isValidMove(i, x, i + 2, x + 2)
+                            || isValidMove(i, x, i + 2, x - 2) || isValidMove(i, x, i - 2, x - 2)
+                            || isValidMove(i, x, i - 2, x + 2)) {
+                        noValidMoves = false;
+                        break;
+                    }
+                }
+            }
+            if (!noValidMoves) {
+            break;
+            }
+        }
+        if (noValidMoves) {
+                return GameState.STALEMATE;
+            }
+
+        return GameState.IN_PROGRESS;
+    }
+    public String displayGameState(){
+        System.out.println(getGameState());
+        GameState gameState= getGameState();  //we need to create a board instance
+        System.out.println(gameState);
+        String state;
         switch (gameState) {
             case NOT_STARTED:
-                gamestateLabel.setText("Start the Game");
+                state= "Start the Game";
+                break;
             case IN_PROGRESS:
-                gamestateLabel.setText("In progress..");
+                state= "In progress..";
+                break;
             case STALEMATE:
-                gamestateLabel.setText("You lost :(");
+                state= "You lost :(";
+                break;
             case WON:
-                gamestateLabel.setText("You won :)");
+                state= "You won :)";
+                break;
+            default:
+                state="something's up";
             
         }
-    }*/
+        return state;
+    }
 
     public void start(Stage stage) throws Exception{
+        displayGameState();
         GridPane testpane= drawBoard(4);
         Label PegLabel=new Label("Peg Game!");
         PegLabel.setFont(Font.font("Helvetica",FontWeight.SEMI_BOLD,30));
@@ -111,16 +198,21 @@ public class PegGameView extends Application{
         closeButton.setFont(Font.font("Helvetica",FontWeight.MEDIUM,15));
         closeButton.setTextFill(Color.RED);
         closeButton.setAlignment(Pos.BOTTOM_RIGHT);
+        
+        Label gamestateLabel = new Label(displayGameState());
+        gamestateLabel.setFont(Font.font("Helvetica",FontWeight.SEMI_BOLD,20));
+        gamestateLabel.setTextFill(Color.BROWN);
+        gamestateLabel.setAlignment(Pos.TOP_RIGHT);
 
         stage.setTitle("Peg Game App");
-        /*HBox h1=new HBox();
+        HBox h1=new HBox();
         h1.getChildren().addAll(PegLabel,gamestateLabel);
         h1.setAlignment(Pos.CENTER);
-        h1.setSpacing(20);*/
+        h1.setSpacing(20);
 
         testpane.setAlignment(Pos.CENTER);
         VBox v1=new VBox();
-        v1.getChildren().addAll(PegLabel,testpane,closeButton);
+        v1.getChildren().addAll(h1,testpane,closeButton);
         v1.setAlignment(Pos.CENTER);
         v1.setSpacing(20);
 

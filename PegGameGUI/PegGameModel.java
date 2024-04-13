@@ -20,7 +20,7 @@ public class PegGameModel {
     // Loads the initial board setup from the specified file
     private boolean[][] initializeBoard(String filePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        int size = Integer.parseInt(reader.readLine());
+        int size = Integer.parseInt(reader.readLine()) ;
         boolean[][] board = new boolean[size][size];
         String line;
         int row = 0;
