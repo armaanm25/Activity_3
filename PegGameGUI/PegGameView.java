@@ -162,7 +162,7 @@ public class PegGameView extends Application{
         return GameState.IN_PROGRESS;
     }
     public String displayGameState(){
-        System.out.println(getGameState());
+        //System.out.println(getGameState());
         GameState gameState= getGameState();  //we need to create a board instance
         System.out.println(gameState);
         String state;
@@ -187,7 +187,7 @@ public class PegGameView extends Application{
     }
 
     public void start(Stage stage) throws Exception{
-        displayGameState();
+        
         GridPane testpane= drawBoard(4);
         Label PegLabel=new Label("Peg Game!");
         PegLabel.setFont(Font.font("Helvetica",FontWeight.SEMI_BOLD,30));
