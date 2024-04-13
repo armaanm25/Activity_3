@@ -10,6 +10,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -103,7 +104,7 @@ public class PegGameView extends Application{
         GridPane testpane= drawBoard(4);
         Label PegLabel=new Label("Peg Game!");
         PegLabel.setFont(Font.font("Helvetica",FontWeight.SEMI_BOLD,30));
-        PegLabel.setTextFill(Color.INDIGO);
+        PegLabel.setTextFill(Color.BROWN);
         PegLabel.setAlignment(Pos.CENTER);
 
         Button closeButton=new Button("CLOSE");
@@ -112,9 +113,13 @@ public class PegGameView extends Application{
         closeButton.setAlignment(Pos.BOTTOM_RIGHT);
 
         stage.setTitle("Peg Game App");
-        VBox v1=new VBox();
+        HBox h1=new HBox();
+        h1.getChildren().addAll(PegLabel,gamestateLabel);
+        h1.setAlignment(Pos.CENTER);
+        h1.setSpacing(20);
 
-        v1.getChildren().addAll(PegLabel,testpane,closeButton);
+        VBox v1=new VBox();
+        v1.getChildren().addAll(h1,testpane,closeButton);
         v1.setAlignment(Pos.CENTER);
         v1.setSpacing(20);
 
