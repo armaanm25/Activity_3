@@ -113,13 +113,14 @@ public class PegGameView extends Application{
         closeButton.setAlignment(Pos.BOTTOM_RIGHT);
 
         stage.setTitle("Peg Game App");
-        HBox h1=new HBox();
+        /*HBox h1=new HBox();
         h1.getChildren().addAll(PegLabel,gamestateLabel);
         h1.setAlignment(Pos.CENTER);
-        h1.setSpacing(20);
+        h1.setSpacing(20);*/
 
+        testpane.setAlignment(Pos.CENTER);
         VBox v1=new VBox();
-        v1.getChildren().addAll(h1,testpane,closeButton);
+        v1.getChildren().addAll(PegLabel,testpane,closeButton);
         v1.setAlignment(Pos.CENTER);
         v1.setSpacing(20);
 
