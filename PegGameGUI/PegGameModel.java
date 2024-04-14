@@ -2,6 +2,7 @@ package PegGameGUI;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,9 +13,10 @@ Ensure the Model classes follow the MVC pattern and encapsulate the game's state
 
 public class PegGameModel {
     private boolean[][] board;
-
+    private String filePath;
     public PegGameModel(String filePath) throws IOException {
         this.board = initializeBoard(filePath);
+        this.filePath=filePath;
     }
 
     // Loads the initial board setup from the specified file
@@ -87,24 +89,59 @@ public class PegGameModel {
     public boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol) {
         int jumpedRow = (fromRow + toRow) / 2;
         int jumpedCol = (fromCol + toCol) / 2;
+        System.out.println(toRow+"torow");
+        System.out.println(toCol+"tocol");
 
         return isValidPosition(toRow, toCol) && !board[toRow][toCol] && board[jumpedRow][jumpedCol];
     }
 
     // Checks if the specified position is a valid position on the board
     private boolean isValidPosition(int row, int col) {
-        return row >= 0 && row < board.length && col >= 0 && col < board[row].length;
+        return row >= 0 && row < board.length && col >= 0 && col <= board[row].length;
     }
 
     // Makes a move from the specified position to the target position on the board
     public void makeMove(int fromRow, int fromCol, int toRow, int toCol) {
         if (isValidMove(fromRow, fromCol, toRow, toCol)) {
+            System.out.println(board[0][3]);
             int jumpedRow = (fromRow + toRow) / 2;
             int jumpedCol = (fromCol + toCol) / 2;
-
+            System.out.println(jumpedCol+"jumped col");
+            System.out.println(jumpedRow+"jumped row");
+            System.out.println(fromCol+"from col");
+            System.out.println(fromRow+"from row");
+            System.out.println(toCol+"to col");
+            System.out.println(toRow+"to row");
             board[fromRow][fromCol] = false;
             board[jumpedRow][jumpedCol] = false;
             board[toRow][toCol] = true;
+            System.out.println("move made");
+            for (boolean[] row1 : board) {
+                for (boolean value : row1) {
+                    System.out.print(value+"-");
+                }
+                System.out.println();
+            }
+     
+
+            try (FileWriter writer = new FileWriter(filePath, false)) { // False to overwrite the file
+                writer.write("4");
+                writer.write(System.lineSeparator());
+                for (boolean[] col : board) {
+                    for (boolean peg : col) {
+                        writer.write(peg ? "0" : "-");
+                    }
+                    writer.write(System.lineSeparator());
+                }
+            
+           
+            PegGameApp.setMoveMade();
+            } catch (IOException e) {
+                System.err.println("Failed to write to file: " + e.getMessage());
+    
+            }
+    
+        
         } else {
             System.out.println("Invalid move!");
         }
