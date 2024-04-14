@@ -135,7 +135,7 @@ public class PegGameModel {
                 }
             
            
-            PegGameApp.setMoveMade();
+            
             } catch (IOException e) {
                 System.err.println("Failed to write to file: " + e.getMessage());
     
